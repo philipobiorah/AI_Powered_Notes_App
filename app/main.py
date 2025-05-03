@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import  FastAPI
+from fastapi.params import Body
 
 app = FastAPI()
 
@@ -9,8 +10,10 @@ def root():
 
 
 @app.post("/createnote")
-def createnote():
-    return {"message": "Note created successfully"}
+def createnote(payload: dict = Body(...)):
+    print(payload)
+    return {"new_note":f"title {payload['title']} content{payload['content']}"}
+    
 
 #Fetch all notes
 @app.get("/notes")
